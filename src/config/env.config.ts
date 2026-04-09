@@ -5,4 +5,5 @@ export const env = {
 	convexDeployment: process.env.CONVEX_DEPLOYMENT!,
 	convexUrl: process.env.NEXT_PUBLIC_CONVEX_URL!,
 	convexSiteUrl: process.env.NEXT_PUBLIC_CONVEX_SITE_URL!,
+	googleGenerativeAiApiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY!,
 };
