@@ -7,4 +7,5 @@ export const env = {
 	convexSiteUrl: process.env.NEXT_PUBLIC_CONVEX_SITE_URL!,
 	googleGenerativeAiApiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY!,
 	firecrawlApiKey: process.env.FIRECRAWL_API_KEY!,
+	sentryAuthToken: process.env.SENTRY_AUTH_TOKEN!,
 };
