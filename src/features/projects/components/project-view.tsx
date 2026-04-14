@@ -14,7 +14,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
 
 	return (
 		<div className="flex flex-col h-full">
-			<nav className="h-[35px] flex items-enter bg-sidebar border-b">
+			<nav className="h-[35px] flex items-center sbg-sidebar border-b">
 				<Tab
 					label="Code"
 					isActive={activeTab === 'editor'}
