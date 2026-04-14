@@ -58,6 +58,8 @@ export const Navbar = ({ projectId }: NavbarProps) => {
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
+			e.preventDefault();
+			e.currentTarget.blur();
 			handleSubmit();
 		} else if (e.key === 'Escape') {
 			setIsRenaming(false);

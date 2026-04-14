@@ -33,10 +33,7 @@ export const ProjectLayout = ({ projectId, children }: ProjectLayoutProps) => {
 					>
 						<div>Conversation Sidebar</div>
 					</Allotment.Pane>
-					<Allotment.Pane
-						minSize={MIN_SIDEBAR_WIDTH}
-						maxSize={MAX_SIDEBAR_WIDTH}
-					>
+					<Allotment.Pane minSize={MIN_SIDEBAR_WIDTH}>
 						{children}
 					</Allotment.Pane>
 				</Allotment>
