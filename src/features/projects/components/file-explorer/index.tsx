@@ -1,5 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Spinner } from '@/components/ui/spinner';
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import {
 	ChevronRightIcon,
@@ -24,7 +30,7 @@ interface FileExplorerProps {
 }
 
 export const FileExplorer = ({ projectId }: FileExplorerProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 	const [collapseKey, setCollapseKey] = useState(0);
 	const [creating, setCreating] = useState<'file' | 'folder' | null>(null);
 
@@ -69,9 +75,16 @@ export const FileExplorer = ({ projectId }: FileExplorerProps) => {
 					)}
 				/>
 
-				<p className="text-xs uppercase line-clamp-1">
-					{project?.name ?? 'Loading...'}
-				</p>
+				{project?.name ? (
+					<Tooltip>
+						<TooltipTrigger className="text-xs uppercase line-clamp-1 whitespace-nowrap">
+							{project.name}
+						</TooltipTrigger>
+						<TooltipContent>{project.name}</TooltipContent>
+					</Tooltip>
+				) : (
+					<Spinner className="size-4 text-muted-foreground" />
+				)}
 
 				<div className="opacity-0 group-hover/project:opacity-100 transition-none duration-0 flex items-center gap-0.5 ml-auto">
 					<Button
