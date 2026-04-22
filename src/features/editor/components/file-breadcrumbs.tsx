@@ -18,7 +18,7 @@ interface FileBreadcrumbsProps {
 
 export const FileBreadcrumbs = ({ projectId }: FileBreadcrumbsProps) => {
 	const { activeTabId } = useEditor(projectId);
-	const filePath = useFilePath(activeTabId!);
+	const filePath = useFilePath(activeTabId);
 
 	if (filePath === undefined || !activeTabId) {
 		return (

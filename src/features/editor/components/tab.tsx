@@ -24,8 +24,17 @@ export const Tab = ({ fileId, isFirst, projectId }: TabProps) => {
 
 	return (
 		<div
+			role="tab"
+			tabIndex={isActive ? 0 : -1}
+			aria-selected={isActive}
 			onClick={() => setActiveTab(fileId)}
 			onDoubleClick={() => openFile(fileId, { pinned: true })}
+			onKeyDown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					setActiveTab(fileId);
+				}
+			}}
 			className={cn(
 				'flex items-center gap-1.5 h-8.75 pl-2 pr-1.5 cursor-pointer text-muted-foreground group border-y border-x border-transparent hover:bg-accent/30 select-none',
 				isActive &&
@@ -38,23 +47,16 @@ export const Tab = ({ fileId, isFirst, projectId }: TabProps) => {
 			) : (
 				<FileIcon fileName={fileName} autoAssign className="size-4" />
 			)}
-
 			<span className={cn('text-sm whitespace-nowrap', isPreview && 'italic')}>
 				{fileName}
 			</span>
-
 			<button
+				type="button"
+				aria-label={`Close ${fileName}`}
 				onClick={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					closeTab(fileId);
-				}}
-				onKeyDown={(e) => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault();
-						e.stopPropagation();
-						closeTab(fileId);
-					}
 				}}
 				className={cn(
 					'p-0.5 rounded-sm hover:bg-white/10 opacity-0  group-hover:opacity-100',

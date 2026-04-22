@@ -71,21 +71,25 @@ export const getFilePath = query({
 			throw new Error('Unauthorized');
 		}
 
-		const path: { _id: string; name: string }[] = [];
-
+		const path: { _id: Id<'files'>; name: string }[] = [];
+		const seen = new Set<Id<'files'>>();
 		let currentId: Id<'files'> | undefined = args.fileId;
-
 		while (currentId) {
-			const file = (await ctx.db.get('files', currentId)) as
+			if (seen.has(currentId)) {
+				throw new Error('Invalid file path');
+			}
+			seen.add(currentId);
+			const currentFile = (await ctx.db.get('files', currentId)) as
 				| Doc<'files'>
 				| undefined;
-
-			if (!file) {
-				break;
+			if (!currentFile) {
+				throw new Error('File not found');
 			}
-
-			path.unshift({ _id: file._id, name: file.name });
-			currentId = file.parentId;
+			if (currentFile.projectId !== file.projectId) {
+				throw new Error('Invalid file path');
+			}
+			path.unshift({ _id: currentFile._id, name: currentFile.name });
+			currentId = currentFile.parentId;
 		}
 
 		return path;

@@ -1,5 +1,4 @@
 import { indentWithTab } from '@codemirror/commands';
-import { javascript } from '@codemirror/lang-javascript';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, keymap } from '@codemirror/view';
 import { indentationMarkers } from '@replit/codemirror-indentation-markers';
@@ -38,7 +37,6 @@ export const CodeEditor = ({
 				customSetup,
 				languageExtension,
 				keymap.of([indentWithTab]),
-				javascript({ typescript: true }),
 				oneDark,
 				customTheme,
 				minimap(),

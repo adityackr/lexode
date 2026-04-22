@@ -12,7 +12,7 @@ export const useFile = (fileId: Id<'files'>) => {
 	return useQuery(api.files.getFile, fileId ? { id: fileId } : 'skip');
 };
 
-export const useFilePath = (fileId: Id<'files'>) => {
+export const useFilePath = (fileId: Id<'files'> | null | undefined) => {
 	return useQuery(api.files.getFilePath, fileId ? { fileId } : 'skip');
 };
 
