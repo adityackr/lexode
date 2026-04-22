@@ -108,7 +108,14 @@ export const Navbar = ({ projectId }: NavbarProps) => {
 									onClick={handleStartRename}
 									className="text-sm cursor-pointer hover:text-primary font-medium max-w-40 truncate"
 								>
-									{project?.name ?? 'Loading...'}
+									{project?.name ? (
+										<Tooltip>
+											<TooltipTrigger>{project.name}</TooltipTrigger>
+											<TooltipContent>{project.name}</TooltipContent>
+										</Tooltip>
+									) : (
+										<Spinner className="size-4 text-muted-foreground" />
+									)}
 								</BreadcrumbPage>
 							)}
 						</BreadcrumbItem>

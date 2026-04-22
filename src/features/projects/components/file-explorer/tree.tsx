@@ -1,3 +1,4 @@
+import { useEditor } from '@/features/editor/hooks/use-editor';
 import { cn } from '@/lib/utils';
 import { FileIcon, FolderIcon } from '@react-symbols/icons/utils';
 import { ChevronRightIcon } from 'lucide-react';
@@ -31,6 +32,8 @@ export const Tree = ({ item, level = 0, projectId }: TreeProps) => {
 	const createFolder = useCreateFolder();
 	const deleteFile = useDeleteFile();
 	const renameFile = useRenameFile();
+
+	const { openFile, closeTab, activeTabId } = useEditor(projectId);
 
 	const folderContents = useFolderContents({
 		projectId,
@@ -75,6 +78,7 @@ export const Tree = ({ item, level = 0, projectId }: TreeProps) => {
 
 	if (item.type === 'file') {
 		const fileName = item.name;
+		const isActive = activeTabId === item._id;
 
 		if (renaming) {
 			return (
@@ -93,12 +97,12 @@ export const Tree = ({ item, level = 0, projectId }: TreeProps) => {
 			<TreeItemWrapper
 				item={item}
 				level={level}
-				isActive={false}
-				onClick={() => {}}
-				onDoubleClick={() => {}}
+				isActive={isActive}
+				onClick={() => openFile(item._id, { pinned: false })}
+				onDoubleClick={() => openFile(item._id, { pinned: true })}
 				onRename={() => setRenaming(true)}
 				onDelete={() => {
-					// TODO: Close Tab
+					closeTab(item._id);
 					deleteFile({ id: item._id });
 				}}
 			>
@@ -194,10 +198,8 @@ export const Tree = ({ item, level = 0, projectId }: TreeProps) => {
 				item={item}
 				level={level}
 				onClick={() => setIsOpen((prev) => !prev)}
-				onDoubleClick={() => {}}
 				onRename={() => setRenaming(true)}
 				onDelete={() => {
-					// TODO: Close Tab
 					deleteFile({ id: item._id });
 				}}
 				onCreateFile={() => startCreating('file')}
